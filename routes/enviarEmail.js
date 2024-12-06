@@ -20,7 +20,9 @@ router.post("/", async (req, res) => {
     ocupacion,
     telefono,
     ruc,
+    ci,
     direccion,
+    email,
     productos,
     apiKey,
   } = req.body;
@@ -34,8 +36,10 @@ router.post("/", async (req, res) => {
       console.error("Api key incorrecta");
       return res.status(401).json({ message: "Api key incorrecta", apiKey });
     }
-    if (!nombre || !ruc || !telefono || !direccion) {
-      console.error("Los campos nombre, ruc, telefono y direccion son obligatorios");
+    if (!nombre || !email || !telefono || !direccion) {
+      console.error(
+        "Los campos nombre, telefono y direccion son obligatorios"
+      );
       return res.status(400).json({
         message:
           "Los campos nombre, ruc, telefono y direccion son obligatorios",
@@ -45,7 +49,7 @@ router.post("/", async (req, res) => {
     let arrayProductos;
     try {
       const cleanedProductos = productos.replace(/\\\\/g, "\\"); // Elimina \\ adicionales
-     console.info(cleanedProductos);
+      console.info(cleanedProductos);
       arrayProductos = JSON.parse(cleanedProductos); // Parsear el string limpio
     } catch (error) {
       console.error(error);
@@ -60,19 +64,25 @@ router.post("/", async (req, res) => {
         .status(400)
         .json({ message: "El campo productos debe ser un array válido" });
     }
-   
+
     const mailOptions = {
       from: "facundolizardotrabajosia@gmail.com",
       to: "facundolizardo75@gmail.com",
       subject: "Correo de test del agente de ventas de PLAUD",
       text: `Hola, este es un correo enviado para testear el agente de ventas.
-      Informacion de la compra: 
+      Informacion de la compra:
+
       - Cliente
       Nombre: ${nombre}
       ${ocupacion ? `Ocupacion: ${ocupacion}` : ""}
-      Telefono: ${telefono} 
-      RUC: ${ruc} 
+      ${ruc ? `RUC: ${ruc}` : ""}
+      ${ci ? `CI: ${ci}` : ""}
       Direccion: ${direccion}
+
+      - Contacto
+      Email: ${email}
+      Telefono: ${telefono} 
+      
       - Productos
       ${arrayProductos
         .map((producto, index) => {

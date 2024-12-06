@@ -34,11 +34,11 @@ router.post("/", async (req, res) => {
       console.error("Api key incorrecta");
       return res.status(401).json({ message: "Api key incorrecta", apiKey });
     }
-    if (!nombre || !ocupacion || !ruc || !telefono || !direccion) {
-      console.error("Los campos nombre, ocupacion, ruc, telefono y direccion son obligatorios");
+    if (!nombre || !ruc || !telefono || !direccion) {
+      console.error("Los campos nombre, ruc, telefono y direccion son obligatorios");
       return res.status(400).json({
         message:
-          "Los campos nombre, ocupacion, ruc, telefono y direccion son obligatorios",
+          "Los campos nombre, ruc, telefono y direccion son obligatorios",
       });
     }
     // Limpiar el string de productos eliminando escapes adicionales
@@ -69,7 +69,7 @@ router.post("/", async (req, res) => {
       Informacion de la compra: 
       - Cliente
       Nombre: ${nombre}
-      Ocupacion: ${ocupacion}
+      ${ocupacion ? `Ocupacion: ${ocupacion}` : ""}
       Telefono: ${telefono} 
       RUC: ${ruc} 
       Direccion: ${direccion}

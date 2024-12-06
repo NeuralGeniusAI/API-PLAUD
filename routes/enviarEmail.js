@@ -45,6 +45,7 @@ router.post("/", async (req, res) => {
     let arrayProductos;
     try {
       const cleanedProductos = productos.replace(/\\\\/g, "\\"); // Elimina \\ adicionales
+     console.info(cleanedProductos);
       arrayProductos = JSON.parse(cleanedProductos); // Parsear el string limpio
     } catch (error) {
       console.error(error);

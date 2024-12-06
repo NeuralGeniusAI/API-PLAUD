@@ -75,14 +75,14 @@ router.post("/", async (req, res) => {
       - Cliente
       Nombre: ${nombre}
       ${ocupacion ? `Ocupacion: ${ocupacion}` : ""}
+      Direccion: ${direccion}
       ${ruc ? `RUC: ${ruc}` : ""}
       ${ci ? `CI: ${ci}` : ""}
-      Direccion: ${direccion}
-
+     
       - Contacto
       Email: ${email}
       Telefono: ${telefono} 
-      
+
       - Productos
       ${arrayProductos
         .map((producto, index) => {

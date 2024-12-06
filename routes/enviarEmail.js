@@ -27,12 +27,15 @@ router.post("/", async (req, res) => {
   const api_key = process.env.API_KEY;
   try {
     if (!apiKey) {
+      console.error("Api key no proporcionada");
       return res.status(401).json({ message: "Api key no proporcionada" });
     }
     if (api_key !== apiKey) {
+      console.error("Api key incorrecta");
       return res.status(401).json({ message: "Api key incorrecta", apiKey });
     }
     if (!nombre || !ocupacion || !ruc || !telefono || !direccion) {
+      console.error("Los campos nombre, ocupacion, ruc, telefono y direccion son obligatorios");
       return res.status(400).json({
         message:
           "Los campos nombre, ocupacion, ruc, telefono y direccion son obligatorios",
@@ -44,12 +47,14 @@ router.post("/", async (req, res) => {
       const cleanedProductos = productos.replace(/\\\\/g, "\\"); // Elimina \\ adicionales
       arrayProductos = JSON.parse(cleanedProductos); // Parsear el string limpio
     } catch (error) {
+      console.error(error);
       return res.status(400).json({
         message: "El campo productos no tiene un formato JSON válido",
         error: error.message,
       });
     }
     if (!Array.isArray(arrayProductos)) {
+      console.error("El campo productos debe ser un array");
       return res
         .status(400)
         .json({ message: "El campo productos debe ser un array válido" });

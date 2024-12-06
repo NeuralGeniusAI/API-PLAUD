@@ -66,8 +66,8 @@ router.post("/", async (req, res) => {
     }
 
     const mailOptions = {
-      from: "facundolizardotrabajosia@gmail.com,gabriela.maluff@rjrimport.com.py",
-      to: "facundolizardo75@gmail.com",
+      from: "facundolizardotrabajosia@gmail.com",
+      to: "facundolizardo75@gmail.com,gabriela.maluff@rjrimport.com.py",
       subject: "Correo de test del agente de ventas de PLAUD",
       text: `Hola, este es un correo enviado para testear el agente de ventas.
       Informacion de la compra:
